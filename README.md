@@ -33,6 +33,10 @@ Make sure to have the following dependencies installed:
 ## Features
 - Synchronized animations for a realistic frisking experience.
 - Categorized frisk system for efficient and organized roleplay interactions.
+- Realistic frisking animations.
+- Add Unlimited Category.
+- Search all at once feature.
+- Dedicated notify for each category.
 
 ## Feedback and Support
 I welcome any feedback or suggestions. If you encounter any issues or need support, please don't hesitate to reach out on the Discord server mentioned above.
