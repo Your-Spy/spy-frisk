@@ -1,3 +1,6 @@
+IsInFrisk = {}
+GlobalState.IsInFrisk = {}
+
 RegisterNetEvent('spy-frisk:checkpersoninv',function(playerId,SearchAll,Category)
     local PlayerWhoWant = source
     if not SearchAll then
@@ -25,14 +28,19 @@ end)
 
 RegisterNetEvent('spy-frisk:server:syncfriskstart',function(srcPed,targetSrc,targetPed)
     local src = source
+    IsInFrisk[src] = true
+    IsInFrisk[targetSrc] = true
+    GlobalState.IsInFrisk = IsInFrisk
     TriggerClientEvent('spy-frisk:client:atttrgt',src,srcPed,targetPed)
-    Wait(300)
     TriggerClientEvent('spy-frisk:client:playanim',src,Config.Anim.srcDict,Config.Anim.srcAnim)
     TriggerClientEvent('spy-frisk:client:playanim',targetSrc,Config.Anim.trgtDict,Config.Anim.trgtAnim)
 end)
 
 RegisterNetEvent('spy-frisk:server:syncfriskend',function(srcPed,targetSrc,targetPed)
     local src = source
+    IsInFrisk[src] = nil
+    IsInFrisk[targetSrc] = nil
+    GlobalState.IsInFrisk = IsInFrisk
     TriggerClientEvent('spy-frisk:client:clearanim',src)
     TriggerClientEvent('spy-frisk:client:clearanim',targetSrc)
 end)

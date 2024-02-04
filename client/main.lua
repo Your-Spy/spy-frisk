@@ -71,8 +71,9 @@ end)
 RegisterNetEvent('spy-frisk:client:startfrisk',function(SearchAll,Category)
     local ped = PlayerPedId()
     local player,targetPed,targetCoords = lib.getClosestPlayer(GetEntityCoords(ped), 1.5, false)
-    local targetId = GetPlayerServerId(player)
     if player then
+        local targetId = GetPlayerServerId(player)
+        if GlobalState.IsInFrisk[targetId] then NotifyPlayer('Player already in frisk!', 3000, 'error') return end
         if (IsPedInAnyVehicle(ped,true) or IsPedInAnyVehicle(targetPed,true)) then NotifyPlayer('Inside Vehicle!',3000,'error') return end
         TriggerServerEvent('spy-frisk:server:syncfriskstart',ped,targetId,targetPed)
         StartProgress(ped,targetId,targetPed,SearchAll,Category)    
@@ -132,6 +133,9 @@ RegisterNetEvent('spy-frisk:client:clearanim',function()
 end)
 
 RegisterNetEvent('spy-frisk:client:atttrgt',function(FriskPed,TargetPed)
+    local coords = GetOffsetFromEntityInWorldCoords(TargetPed, 0.0, -0.5, 0.0)
+    SetEntityCoords(FriskPed, coords, true, false, false, false)
+    SetEntityHeading(FriskPed,GetEntityHeading(TargetPed))
     AttachEntityToEntity(FriskPed, TargetPed, -1, 0.0, -0.5, 0.0, 0.0, 0.0,0.0, false, false, false, true, 1, true)
 end)
 
